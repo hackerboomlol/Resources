@@ -1,8 +1,25 @@
 import os
 import platform
+import subprocess
+import sys
+from datetime import datetime
+
+# Function to install required packages
+def install_packages():
+    required_packages = ['psutil==5.9.5', 'speedtest-cli==2.1.3']
+    for package in required_packages:
+        try:
+            __import__(package.split('==')[0])
+        except ImportError:
+            print(f"Installing {package}...")
+            subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+# Install required packages if not already installed
+install_packages()
+
+# Now import the required libraries
 import psutil
 import speedtest
-from datetime import datetime
 
 def get_system_info():
     # OS Information
